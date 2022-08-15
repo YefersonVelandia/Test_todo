@@ -1,16 +1,21 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
+import isAuthenticatedGuard from './auth-guard'
 
 const routes = [
   { 
     path: '/',
+    name: 'login',
     component: () => import('../components/LoginForm') 
   },
   { 
     path: '/dashboard',
+    name: 'dashboard',
+    beforeEnter: [isAuthenticatedGuard],
     component: () => import('../layout/Main') 
   },
   { 
     path: '/Users/:id/todos',
+    beforeEnter: [isAuthenticatedGuard],
     props: true,
     component: () => import('../components/Todo') 
   },
